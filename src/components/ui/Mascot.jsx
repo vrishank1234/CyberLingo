@@ -189,3 +189,4 @@ Mascot.propTypes = {
   size: PropTypes.number,
   className: PropTypes.string
 };
+
