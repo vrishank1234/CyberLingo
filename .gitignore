@@ -13,3 +13,9 @@ ui-debug.log*
 # Test coverage
 coverage
 
+# Design assets & zip dumps
+*.zip
+stitch_cyberlingo_mobile_app/
+stitch_cyberlingo_mobile_app 2/
+
+
