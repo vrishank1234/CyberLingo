@@ -1,0 +1,604 @@
+{
+  "trackId": "security-fundamentals",
+  "title": "Security Fundamentals",
+  "order": 1,
+  "description": "Master core security principles, threat detection, and tactical defense in bite-sized missions.",
+  "version": 1,
+  "units": [
+    {
+      "unitId": "u1-cia-triad",
+      "title": "The CIA Triad & Core Defense",
+      "order": 1,
+      "color": "#58CC02",
+      "guidebook": "The CIA Triad (Confidentiality, Integrity, and Availability) is the universal bedrock of information security. Confidentiality ensures data is accessible only to authorized entities through encryption, access control lists (ACLs), and data classification. Integrity guarantees information remains accurate and untampered with via cryptographic hashing and digital signatures. Availability ensures critical systems, networks, and databases are operational and reachable when needed through redundancy, backups, and load balancing.",
+      "lessons": [
+        {
+          "lessonId": "u1-l1",
+          "title": "What is Confidentiality?",
+          "order": 1,
+          "exercises": [
+            {
+              "id": "u1-l1-e1",
+              "type": "info_card",
+              "title": "Confidentiality in Action",
+              "content": "Confidentiality prevents unauthorized disclosure of sensitive data. It relies on encryption, strong authentication, and principle of least privilege.",
+              "keyTakeaway": "If someone doesn't need to see the data to do their job, they shouldn't have access."
+            },
+            {
+              "id": "u1-l1-e2",
+              "type": "multiple_choice",
+              "prompt": "Which principle of the CIA Triad focuses on keeping sensitive records secret from unauthorized parties?",
+              "options": ["Integrity", "Confidentiality", "Availability", "Authenticity"],
+              "answer": 1,
+              "explanation": "Confidentiality protects secrets, passwords, and sensitive information from exposure."
+            },
+            {
+              "id": "u1-l1-e3",
+              "type": "true_false",
+              "prompt": "A padlock icon (HTTPS) in the browser URL bar guarantees a website is safe and not operated by scammers.",
+              "answer": false,
+              "explanation": "HTTPS only encrypts the connection. Malicious attackers frequently obtain free SSL certificates for phishing sites."
+            },
+            {
+              "id": "u1-l1-e4",
+              "type": "fill_blank",
+              "prompt": "Complete the security concept:",
+              "sentence": "A ___ provides an encrypted tunnel that shields public Wi-Fi communications from snooping.",
+              "wordBank": ["VPN", "Firewall", "Router", "Switch"],
+              "answer": ["VPN"],
+              "explanation": "A Virtual Private Network (VPN) creates an encrypted tunnel across untrusted networks."
+            },
+            {
+              "id": "u1-l1-e5",
+              "type": "match_pairs",
+              "prompt": "Match each security concept with its definition:",
+              "pairs": [
+                ["Confidentiality", "Preventing unauthorized disclosure of data"],
+                ["Integrity", "Preventing unauthorized alteration of data"],
+                ["Availability", "Ensuring systems are accessible when required"],
+                ["Non-repudiation", "Inability to deny the authenticity of a signed action"]
+              ],
+              "explanation": "These core concepts establish the security posture for all modern enterprise networks."
+            },
+            {
+              "id": "u1-l1-e6",
+              "type": "multi_select",
+              "prompt": "Select all effective safeguards that protect data confidentiality:",
+              "options": [
+                "End-to-end encryption",
+                "Broadcasting passwords on open team channels",
+                "Role-Based Access Control (RBAC)",
+                "Multi-Factor Authentication (MFA)",
+                "Disabling screen locks on work laptops"
+              ],
+              "answer": [0, 2, 3],
+              "explanation": "Encryption, RBAC, and MFA restrict access to authorized individuals."
+            },
+            {
+              "id": "u1-l1-e7",
+              "type": "order_steps",
+              "prompt": "Arrange the standard NIST incident response phases in correct order:",
+              "steps": [
+                "Preparation",
+                "Detection & Analysis",
+                "Containment, Eradication & Recovery",
+                "Post-Incident Activity"
+              ],
+              "explanation": "NIST SP 800-61 starts with Preparation and ends with Post-Incident Lessons Learned."
+            },
+            {
+              "id": "u1-l1-e8",
+              "type": "multiple_choice",
+              "prompt": "What security principle states users should only have the minimum permissions needed to do their work?",
+              "options": [
+                "Defense in Depth",
+                "Principle of Least Privilege",
+                "Separation of Duties",
+                "Fail-Safe Defaults"
+              ],
+              "answer": 1,
+              "explanation": "Least privilege limits blast radius if an account is compromised."
+            }
+          ]
+        },
+        {
+          "lessonId": "u1-l2",
+          "title": "Integrity & Data Tampering",
+          "order": 2,
+          "exercises": [
+            {
+              "id": "u1-l2-e1",
+              "type": "info_card",
+              "title": "Data Integrity & Hashes",
+              "content": "Cryptographic hash functions (like SHA-256) generate a fixed-size fingerprint for any file. If even a single byte changes, the hash changes completely (the avalanche effect).",
+              "keyTakeaway": "Cryptographic hashes verify that files have not been modified or corrupted."
+            },
+            {
+              "id": "u1-l2-e2",
+              "type": "spot_the_threat",
+              "prompt": "Inspect this email header. Tap the suspicious sender address indicator:",
+              "threatData": {
+                "senderDisplay": "PayPal Security Dept",
+                "senderEmail": "notice@paypa1-security-verification.com",
+                "subject": "Account Alert: Unrecognized Device Logged In",
+                "body": "We detected an unauthorized sign-in. Verify your account now or it will be locked.",
+                "targets": [
+                  { "id": "t1", "text": "PayPal Security Dept", "isThreat": false },
+                  { "id": "t2", "text": "notice@paypa1-security-verification.com", "isThreat": true },
+                  { "id": "t3", "text": "Unrecognized Device Logged In", "isThreat": false }
+                ]
+              },
+              "answer": "t2",
+              "explanation": "The domain 'paypa1-security-verification.com' substitutes the letter 'l' with the digit '1' (typosquatting)."
+            },
+            {
+              "id": "u1-l2-e3",
+              "type": "command_complete",
+              "prompt": "Construct the command to compute the SHA-256 hash of 'financial_report.pdf':",
+              "targetCommand": "sha256sum financial_report.pdf",
+              "wordBank": ["sha256sum", "financial_report.pdf", "md5", "-s", "cat", "hash"],
+              "answer": ["sha256sum", "financial_report.pdf"],
+              "explanation": "sha256sum outputs the 64-character hexadecimal SHA-256 checksum of the target file."
+            },
+            {
+              "id": "u1-l2-e4",
+              "type": "scenario",
+              "context": "A coworker sends you an executable file called 'QuarterlyBonus.exe' over chat, asking you to run it right away to claim your company bonus.",
+              "prompt": "What is the safest tactical response?",
+              "options": [
+                "Run the file immediately before the bonus expires",
+                "Scan the file on an external untrusted website and run it if clean",
+                "Do not run the file, contact your coworker through a different channel to verify, and notify security",
+                "Forward it to other team members to test if it works for them"
+              ],
+              "answer": 2,
+              "explanation": "Out-of-band verification and reporting prevents executing malware from a compromised coworker account."
+            },
+            {
+              "id": "u1-l2-e5",
+              "type": "multiple_choice",
+              "prompt": "Which cryptographic property guarantees that a digital signature cannot be easily forged or denied?",
+              "options": ["Availability", "Non-repudiation", "Obfuscation", "Redundancy"],
+              "answer": 1,
+              "explanation": "Non-repudiation provides irrefutable proof of the origin and integrity of a digital transaction."
+            },
+            {
+              "id": "u1-l2-e6",
+              "type": "true_false",
+              "prompt": "A cryptographic hash function can be mathematically reversed to recover the original password.",
+              "answer": false,
+              "explanation": "Cryptographic hashes are one-way mathematical functions; you cannot reverse-engineer the input from the hash."
+            },
+            {
+              "id": "u1-l2-e7",
+              "type": "fill_blank",
+              "prompt": "Complete the statement:",
+              "sentence": "A digital signature uses asymmetric cryptography with a sender's ___ key to sign and the public key to verify.",
+              "wordBank": ["private", "public", "symmetric", "shared"],
+              "answer": ["private"],
+              "explanation": "The private key signs the data and only the matching public key can verify the signature."
+            },
+            {
+              "id": "u1-l2-e8",
+              "type": "match_pairs",
+              "prompt": "Match the hashing algorithm to its security standing:",
+              "pairs": [
+                ["MD5", "Broken & cryptographically insecure"],
+                ["SHA-1", "Deprecated due to collision attacks"],
+                ["SHA-256", "Modern industry standard for integrity"],
+                ["Bcrypt", "Slow, salted hash recommended for passwords"]
+              ],
+              "explanation": "Always use modern algorithms like SHA-256 for integrity and Argon2/Bcrypt for passwords."
+            }
+          ]
+        },
+        {
+          "lessonId": "u1-l3",
+          "title": "Availability & System Resilience",
+          "order": 3,
+          "exercises": [
+            {
+              "id": "u1-l3-e1",
+              "type": "multiple_choice",
+              "prompt": "Which attack specifically aims to exhaust computing resources and render an online service unavailable?",
+              "options": [
+                "Denial of Service (DoS)",
+                "SQL Injection",
+                "Cross-Site Scripting (XSS)",
+                "Man-in-the-Middle"
+              ],
+              "answer": 0,
+              "explanation": "DoS and DDoS attacks flood network pipes or CPU resources to take servers offline."
+            },
+            {
+              "id": "u1-l3-e2",
+              "type": "multi_select",
+              "prompt": "Select all key technologies used to guarantee high system availability:",
+              "options": [
+                "Redundant power supplies (UPS)",
+                "Load balancers distributing network traffic",
+                "Single database with zero backups",
+                "Automated geo-distributed failover",
+                "Storing passwords in cleartext"
+              ],
+              "answer": [0, 1, 3],
+              "explanation": "Redundancy, load balancing, and failover eliminate single points of failure."
+            },
+            {
+              "id": "u1-l3-e3",
+              "type": "order_steps",
+              "prompt": "Order the steps of a structured disaster recovery procedure:",
+              "steps": [
+                "Declare disaster and trigger emergency communication",
+                "Failover traffic to secondary data center",
+                "Restore databases from verified backups",
+                "Verify system integrity and conduct root-cause review"
+              ],
+              "explanation": "A systematic disaster plan minimizes business downtime and avoids secondary data loss."
+            },
+            {
+              "id": "u1-l3-e4",
+              "type": "command_complete",
+              "prompt": "Assemble the curl command to inspect HTTP response headers and check server status:",
+              "targetCommand": "curl -I https://api.example.com",
+              "wordBank": ["curl", "-I", "https://api.example.com", "-X", "POST", "ping"],
+              "answer": ["curl", "-I", "https://api.example.com"],
+              "explanation": "The `-I` (or `--head`) flag fetches the HTTP header without downloading the body."
+            },
+            {
+              "id": "u1-l3-e5",
+              "type": "spot_the_threat",
+              "prompt": "Spot the threat indicator in this suspicious text message (Smishing):",
+              "threatData": {
+                "senderDisplay": "+1 (555) 019-2834",
+                "senderEmail": "SMS Alert",
+                "subject": "USPS Package Delivery Delayed",
+                "body": "USPS: Your parcel has an incorrect zip code. Update details within 24h at: https://usps-parcel-redirection-fee.info/pay",
+                "targets": [
+                  { "id": "t1", "text": "USPS Package Delivery Delayed", "isThreat": false },
+                  { "id": "t2", "text": "https://usps-parcel-redirection-fee.info/pay", "isThreat": true },
+                  { "id": "t3", "text": "+1 (555) 019-2834", "isThreat": false }
+                ]
+              },
+              "answer": "t2",
+              "explanation": "The domain 'usps-parcel-redirection-fee.info' is an untrusted scam URL mimicking the Postal Service."
+            },
+            {
+              "id": "u1-l3-e6",
+              "type": "scenario",
+              "context": "A Distributed Denial of Service (DDoS) attack strikes your e-commerce gateway on Black Friday, overwhelming the ingress routers.",
+              "prompt": "What is the most effective immediate countermeasure?",
+              "options": [
+                "Reboot the production web servers every 15 minutes",
+                "Route incoming traffic through a cloud DDoS mitigation and scrubbing provider",
+                "Disable all TLS certificates to reduce CPU load",
+                "Turn off the firewall to let traffic pass freely"
+              ],
+              "answer": 1,
+              "explanation": "Cloud scrubbing centers filter out malicious bot traffic while passing legitimate customer requests."
+            },
+            {
+              "id": "u1-l3-e7",
+              "type": "true_false",
+              "prompt": "Ransomware attacks only threaten confidentiality, leaving system availability unaffected.",
+              "answer": false,
+              "explanation": "Ransomware severely damages availability by encrypting operational data and taking down core systems."
+            },
+            {
+              "id": "u1-l3-e8",
+              "type": "fill_blank",
+              "prompt": "Complete the concept:",
+              "sentence": "The maximum tolerable duration of downtime during an outage is defined in the SLA as the Recovery ___ Objective (RTO).",
+              "wordBank": ["Time", "Point", "Cost", "Security"],
+              "answer": ["Time"],
+              "explanation": "Recovery Time Objective (RTO) dictates how fast systems must be restored after disruption."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unitId": "u2-threats-defense",
+      "title": "Threat Landscape & Active Defense",
+      "order": 2,
+      "color": "#1CB0F6",
+      "guidebook": "Modern threat actors deploy sophisticated social engineering, malware, and automated reconnaissance against networks. Understanding offensive tradecraft enables blue teamers to implement proactive defenses. We examine phishing anatomy, malware categories, credential harvesting, defense-in-depth architecture, and essential command-line reconnaissance tools like Nmap.",
+      "lessons": [
+        {
+          "lessonId": "u2-l1",
+          "title": "Phishing & Social Engineering",
+          "order": 1,
+          "exercises": [
+            {
+              "id": "u2-l1-e1",
+              "type": "info_card",
+              "title": "The Art of Social Engineering",
+              "content": "Social engineering exploits human psychology—urgency, authority, fear, and curiosity—rather than software bugs. Phishing accounts for over 80% of reported security incidents.",
+              "keyTakeaway": "Always pause and question any communication demanding urgent action or financial transfers."
+            },
+            {
+              "id": "u2-l1-e2",
+              "type": "multiple_choice",
+              "prompt": "What type of phishing specifically targets high-profile executives or board members?",
+              "options": ["Vishing", "Whaling", "Smishing", "Pharming"],
+              "answer": 1,
+              "explanation": "Whaling is spear-phishing directed specifically at executive leadership (the 'big fish')."
+            },
+            {
+              "id": "u2-l1-e3",
+              "type": "spot_the_threat",
+              "prompt": "Inspect this fake Microsoft 365 login link. Tap the deceptive indicator:",
+              "threatData": {
+                "senderDisplay": "Microsoft 365 Admin Center",
+                "senderEmail": "admin@microsoft-support-team.com",
+                "subject": "Action Required: Re-authenticate your corporate email",
+                "body": "Your session has expired. Log in here to retain access: http://login.microsoftonline.com.attacker-controlled-proxy.ru/signin",
+                "targets": [
+                  { "id": "t1", "text": "Microsoft 365 Admin Center", "isThreat": false },
+                  { "id": "t2", "text": "Action Required", "isThreat": false },
+                  { "id": "t3", "text": "http://login.microsoftonline.com.attacker-controlled-proxy.ru/signin", "isThreat": true }
+                ]
+              },
+              "answer": "t3",
+              "explanation": "The domain ends in '.attacker-controlled-proxy.ru' despite prepending 'login.microsoftonline.com' as subdomains."
+            },
+            {
+              "id": "u2-l1-e4",
+              "type": "true_false",
+              "prompt": "Multi-Factor Authentication (MFA) that uses SMS text codes is immune to SIM-swapping attacks.",
+              "answer": false,
+              "explanation": "SMS-based MFA is vulnerable to SIM-swap fraud and interception. Hardware keys (FIDO2) or authenticator apps are much more secure."
+            },
+            {
+              "id": "u2-l1-e5",
+              "type": "scenario",
+              "context": "An urgent phone caller claims to be your company's CEO calling from an airport, demanding you immediately wire $50,000 to a new vendor account before the flight departs.",
+              "prompt": "What attack vector does this represent?",
+              "options": [
+                "Business Email Compromise / CEO Vishing Fraud",
+                "SQL Injection attack",
+                "Buffer Overflow exploit",
+                "Zero-Day Firmware attack"
+              ],
+              "answer": 0,
+              "explanation": "CEO fraud uses authority and artificial urgency over phone (vishing) or email to bypass financial controls."
+            },
+            {
+              "id": "u2-l1-e6",
+              "type": "match_pairs",
+              "prompt": "Match the social engineering vector to its medium:",
+              "pairs": [
+                ["Vishing", "Voice telephone calls"],
+                ["Smishing", "SMS text messages"],
+                ["Spear Phishing", "Tailored emails targeting specific individuals"],
+                ["Baiting", "Leaving infected physical USB drives in public areas"]
+              ],
+              "explanation": "Recognizing varied channels helps users detect social engineering attacks."
+            },
+            {
+              "id": "u2-l1-e7",
+              "type": "fill_blank",
+              "prompt": "Fill in the blank:",
+              "sentence": "A physical security attack where an unauthorized person follows an employee through a secure badge door is called ___.",
+              "wordBank": ["tailgating", "phishing", "spoofing", "sniffing"],
+              "answer": ["tailgating"],
+              "explanation": "Tailgating (or piggybacking) breaches perimeter defenses by exploiting social courtesy."
+            },
+            {
+              "id": "u2-l1-e8",
+              "type": "command_complete",
+              "prompt": "Construct the WHOIS command to inspect the domain registration and owner details of 'malicious-domain.com':",
+              "targetCommand": "whois malicious-domain.com",
+              "wordBank": ["whois", "malicious-domain.com", "dig", "traceroute", "curl"],
+              "answer": ["whois", "malicious-domain.com"],
+              "explanation": "whois queries registry databases for domain registrar, creation date, and contact details."
+            }
+          ]
+        },
+        {
+          "lessonId": "u2-l2",
+          "title": "Malware & Threat Defense",
+          "order": 2,
+          "exercises": [
+            {
+              "id": "u2-l2-e1",
+              "type": "order_steps",
+              "prompt": "Order the typical stages of the Cyber Kill Chain (Lockheed Martin framework):",
+              "steps": [
+                "Reconnaissance",
+                "Weaponization & Delivery",
+                "Exploitation & Installation",
+                "Command & Control (C2) and Actions on Objectives"
+              ],
+              "explanation": "Understanding the attack kill chain allows defenders to disrupt the intrusion at early stages."
+            },
+            {
+              "id": "u2-l2-e2",
+              "type": "multi_select",
+              "prompt": "Select all typical characteristics of Ransomware:",
+              "options": [
+                "Encrypts user documents and system files",
+                "Demands cryptocurrency payment for decryption keys",
+                "Improves system operating speed",
+                "Leaves a ransom note on the desktop",
+                "Validates software licenses automatically"
+              ],
+              "answer": [0, 1, 3],
+              "explanation": "Ransomware holds user data hostage through encryption and cryptocurrency extortion."
+            },
+            {
+              "id": "u2-l2-e3",
+              "type": "multiple_choice",
+              "prompt": "What differentiates a Computer Worm from a standard Computer Virus?",
+              "options": [
+                "A worm can self-replicate and spread across networks without human action",
+                "A worm only affects mobile smartphones",
+                "A worm requires the user to open an infected document",
+                "A worm cannot be detected by antivirus scanners"
+              ],
+              "answer": 0,
+              "explanation": "Worms propagate autonomously across network vulnerabilities without needing a host program or user trigger."
+            },
+            {
+              "id": "u2-l2-e4",
+              "type": "command_complete",
+              "prompt": "Assemble the Nmap command to scan top 100 ports with service version detection on 10.0.0.1:",
+              "targetCommand": "nmap -sV -F 10.0.0.1",
+              "wordBank": ["nmap", "-sV", "-F", "10.0.0.1", "-O", "--script"],
+              "answer": ["nmap", "-sV", "-F", "10.0.0.1"],
+              "explanation": "The `-F` flag runs a fast scan of top 100 ports, and `-sV` probes for service/version info."
+            },
+            {
+              "id": "u2-l2-e5",
+              "type": "spot_the_threat",
+              "prompt": "Spot the suspicious base64 obfuscated payload in this PowerShell execution snippet:",
+              "threatData": {
+                "senderDisplay": "Endpoint Detection Log",
+                "senderEmail": "SIEM Alert #4819",
+                "subject": "Suspicious Process Spawned",
+                "body": "powershell.exe -NoP -NonI -W Hidden -Enc SUVYIChOZXctT2JqZWN0IE5ldC5XZWJDbGllbnQp",
+                "targets": [
+                  { "id": "t1", "text": "powershell.exe", "isThreat": false },
+                  { "id": "t2", "text": "-NoP -NonI -W Hidden", "isThreat": false },
+                  { "id": "t3", "text": "-Enc SUVYIChOZXctT2JqZWN0IE5ldC5XZWJDbGllbnQp", "isThreat": true }
+                ]
+              },
+              "answer": "t3",
+              "explanation": "The `-Enc` flag decodes and executes an obfuscated base64 payload in memory."
+            },
+            {
+              "id": "u2-l2-e6",
+              "type": "fill_blank",
+              "prompt": "Complete the security term:",
+              "sentence": "A software vulnerability unknown to the software vendor with no patch yet available is called a ___-day vulnerability.",
+              "wordBank": ["zero", "first", "black", "patch"],
+              "answer": ["zero"],
+              "explanation": "Zero-day vulnerabilities represent severe risks because no vendor remediation exists yet."
+            },
+            {
+              "id": "u2-l2-e7",
+              "type": "scenario",
+              "context": "Your EDR (Endpoint Detection and Response) console reports an employee laptop beaconing every 60 seconds to a known Cobalt Strike C2 IP address.",
+              "prompt": "What is the very first containment action you should take?",
+              "options": [
+                "Reboot the machine to see if the connection stops",
+                "Isolate the infected host from the network immediately",
+                "Delete the operating system files immediately",
+                "Wait 48 hours to collect more data before intervening"
+              ],
+              "answer": 1,
+              "explanation": "Network isolation stops lateral movement and active data exfiltration while preserving memory forensics."
+            },
+            {
+              "id": "u2-l2-e8",
+              "type": "true_false",
+              "prompt": "Running as an Administrator or root user for everyday web browsing is a safe security practice.",
+              "answer": false,
+              "explanation": "Browser exploits running with administrator privileges grant attackers instant full machine control."
+            }
+          ]
+        },
+        {
+          "lessonId": "u2-l3",
+          "title": "Network Defense & Tactical Tools",
+          "order": 3,
+          "exercises": [
+            {
+              "id": "u2-l3-e1",
+              "type": "info_card",
+              "title": "Defense-in-Depth Architecture",
+              "content": "A fortified network utilizes tiered defensive perimeters: Next-Gen Firewalls at the perimeter, zero-trust network segmentation, endpoint protection on hosts, and centralized SIEM log monitoring.",
+              "keyTakeaway": "Layered defenses ensure that a single bypassed lock does not yield total network takeover."
+            },
+            {
+              "id": "u2-l3-e2",
+              "type": "match_pairs",
+              "prompt": "Match each network security tool to its primary function:",
+              "pairs": [
+                ["Wireshark", "Packet capture and protocol analysis"],
+                ["Nmap", "Network mapping and open port scanning"],
+                ["Snort / Suricata", "Intrusion Detection & Prevention (IDS/IPS)"],
+                ["Burp Suite", "Web application vulnerability testing"]
+              ],
+              "explanation": "Security professionals leverage these tools for audits, monitoring, and forensic defense."
+            },
+            {
+              "id": "u2-l3-e3",
+              "type": "order_steps",
+              "prompt": "Order the steps of the TCP 3-way handshake:",
+              "steps": [
+                "Client sends SYN packet",
+                "Server responds with SYN-ACK packet",
+                "Client sends ACK packet"
+              ],
+              "explanation": "The SYN -> SYN-ACK -> ACK handshake establishes a reliable TCP connection."
+            },
+            {
+              "id": "u2-l3-e4",
+              "type": "command_complete",
+              "prompt": "Construct the netstat command to show all active listening TCP ports with process IDs:",
+              "targetCommand": "netstat -tulnp",
+              "wordBank": ["netstat", "-tulnp", "-a", "grep", "tcpdump"],
+              "answer": ["netstat", "-tulnp"],
+              "explanation": "The `-tulnp` options display TCP/UDP listening sockets with numeric ports and process names."
+            },
+            {
+              "id": "u2-l3-e5",
+              "type": "spot_the_threat",
+              "prompt": "Inspect this SQL query input field. Tap the classic SQL Injection (SQLi) attempt:",
+              "threatData": {
+                "senderDisplay": "Web Application Firewall Alert",
+                "senderEmail": "WAF Ruleset #1092",
+                "subject": "SQLi Detected in Login Form",
+                "body": "User input for username: admin' OR '1'='1' --",
+                "targets": [
+                  { "id": "t1", "text": "username:", "isThreat": false },
+                  { "id": "t2", "text": "admin' OR '1'='1' --", "isThreat": true },
+                  { "id": "t3", "text": "WAF Ruleset #1092", "isThreat": false }
+                ]
+              },
+              "answer": "t2",
+              "explanation": "' OR '1'='1' -- is the classic SQL injection string designed to force a true clause and bypass authentication."
+            },
+            {
+              "id": "u2-l3-e6",
+              "type": "scenario",
+              "context": "An audit discovers that your internal database server is accessible directly over the public internet on default port 3306 with password authentication only.",
+              "prompt": "What architectural change should be implemented immediately?",
+              "options": [
+                "Restrict database access to internal private subnets or VPN only, behind a firewall",
+                "Increase the password length by 2 characters and leave it public",
+                "Change port 3306 to port 3307 and keep it exposed",
+                "Post a warning banner on the connection page"
+              ],
+              "answer": 0,
+              "explanation": "Databases should never be exposed to the public internet. Use private VPC subnets and VPN/bastion access."
+            },
+            {
+              "id": "u2-l3-e7",
+              "type": "multi_select",
+              "prompt": "Select all essential hardening steps for securing a new production Linux server:",
+              "options": [
+                "Disable SSH root login and password authentication (use SSH keys)",
+                "Enable an active firewall (UFW/iptables) allowing only required ports",
+                "Leave all default vendor accounts with default passwords",
+                "Enable unattended security updates",
+                "Disable system logging to save hard drive space"
+              ],
+              "answer": [0, 1, 3],
+              "explanation": "SSH key authentication, firewalls, and timely patching form the baseline of Linux hardening."
+            },
+            {
+              "id": "u2-l3-e8",
+              "type": "multiple_choice",
+              "prompt": "Which network architecture model requires every user and device inside or outside the network to be authenticated and continuously validated?",
+              "options": ["Zero Trust", "Perimeter Security", "Air Gap", "Demilitarized Zone (DMZ)"],
+              "answer": 0,
+              "explanation": "The Zero Trust model follows the mantra: 'Never trust, always verify'."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Protected fields that client can NEVER write directly
+    function hasNoProtectedFieldUpdates() {
+      let protectedFields = ['xpTotal', 'xpToday', 'xpWeek', 'gems', 'hearts', 'heartsUpdatedAt', 'streak', 'longestStreak', 'streakFreezes', 'leagueId', 'leagueTier'];
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(protectedFields);
+    }
+
+    // Config - read only by authenticated users, writes denied
+    match /config/{document=**} {
+      allow read: if isAuthenticated();
+      allow write: if false;
+    }
+
+    // Tracks, units, lessons, exercises - read by authenticated users, writes denied
+    match /tracks/{trackId} {
+      allow read: if isAuthenticated();
+      allow write: if false;
+
+      match /units/{unitId} {
+        allow read: if isAuthenticated();
+        allow write: if false;
+
+        match /lessons/{lessonId} {
+          allow read: if isAuthenticated();
+          allow write: if false;
+
+          match /exercises/{exerciseId} {
+            allow read: if isAuthenticated();
+            allow write: if false;
+          }
+        }
+      }
+    }
+
+    // User profile documents
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      // On create, initial non-cheatable setup or via onUserCreate trigger
+      allow create: if isOwner(userId);
+      // On update, owner can update profile fields, but protected fields are rejected
+      allow update: if isOwner(userId) && (resource == null || hasNoProtectedFieldUpdates());
+      allow delete: if isOwner(userId);
+
+      // User subcollections
+      match /progress/{trackId} {
+        allow read: if isOwner(userId);
+        allow write: if false; // Updated strictly via Cloud Functions completeLesson
+      }
+
+      match /mistakes/{exerciseId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /quests/{dateId} {
+        allow read: if isOwner(userId);
+        allow write: if false; // Managed by daily streak / completeLesson / claimQuestReward
+      }
+
+      match /achievements/{badgeId} {
+        allow read: if isOwner(userId);
+        allow write: if false; // Awarded by Cloud Functions
+      }
+    }
+
+    // Leagues - read-only for authenticated users, updated only by Cloud Functions
+    match /leagues/{leagueId} {
+      allow read: if isAuthenticated();
+      allow write: if false;
+
+      match /members/{memberId} {
+        allow read: if isAuthenticated();
+        allow write: if false;
+      }
+    }
+  }
+}
