@@ -124,3 +124,4 @@ CommandComplete.propTypes = {
   disabled: PropTypes.bool,
   status: PropTypes.oneOf(['idle', 'checking', 'correct', 'incorrect'])
 };
+

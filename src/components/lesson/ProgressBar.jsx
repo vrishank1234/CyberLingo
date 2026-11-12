@@ -55,3 +55,4 @@ ProgressBar.propTypes = {
   hearts: PropTypes.number.isRequired,
   onQuit: PropTypes.func.isRequired
 };
+

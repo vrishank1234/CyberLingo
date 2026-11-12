@@ -246,3 +246,4 @@ export default function LessonPlayer({ onExitLesson }) {
 LessonPlayer.propTypes = {
   onExitLesson: PropTypes.func.isRequired
 };
+

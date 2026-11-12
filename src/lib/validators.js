@@ -222,3 +222,4 @@ export function validateExercise(exercise, answer) {
       return { correct: false, correctAnswer: '', explanation: '' };
   }
 }
+

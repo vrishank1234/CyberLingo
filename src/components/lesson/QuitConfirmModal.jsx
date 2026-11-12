@@ -54,3 +54,4 @@ QuitConfirmModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onConfirmQuit: PropTypes.func.isRequired
 };
+

@@ -92,3 +92,4 @@ export function playCompleteSound() {
     navigator.vibrate([80, 50, 100]);
   }
 }
+
